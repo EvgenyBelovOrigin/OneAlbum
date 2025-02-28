@@ -6,7 +6,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import ru.netology.onealbum.dto.Album
-import ru.netology.onealbum.dto.Tracks
 import java.util.concurrent.TimeUnit
 
 class Repository {
