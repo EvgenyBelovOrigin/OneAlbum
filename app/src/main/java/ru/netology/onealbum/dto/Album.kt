@@ -5,7 +5,8 @@ data class Album(
     val title: String = "",
     val subTitle: String = "",
     val artist: String = "",
-    val published: String= "",
+    val published: String = "",
+    val genre: String = "",
     val tracks: List<Tracks> = emptyList(),
 )
 

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OneAlbum</string>
+    <string name="album">Album</string>
 </resources>

@@ -17,8 +17,12 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel: ViewModel by viewModels()
         viewModel._album.observe(this) { album ->
-
-                binding.hello.text = album.artist
+            with(binding) {
+                albumName.text = album.title
+                artistName.text = album.artist
+                published.text = album.published
+                genre.text = album.genre
+            }
         }
     }
 }
