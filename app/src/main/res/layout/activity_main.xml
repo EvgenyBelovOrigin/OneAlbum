@@ -43,6 +43,7 @@
         app:layout_constraintStart_toEndOf="@id/artist"
         app:layout_constraintTop_toBottomOf="@id/albumName"
         tools:text="Artist Name" />
+
     <TextView
         android:id="@+id/published"
         android:layout_width="wrap_content"
@@ -51,6 +52,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/artist"
         tools:text="published" />
+
     <TextView
         android:id="@+id/genre"
         android:layout_width="wrap_content"
@@ -59,5 +61,18 @@
         app:layout_constraintStart_toEndOf="@id/published"
         app:layout_constraintTop_toBottomOf="@id/artist"
         tools:text="genre" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/published"
+        app:layout_constraintVertical_bias="0.082"
+        tools:layout_editor_absoluteX="16dp"
+        tools:listitem="@layout/card_track"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

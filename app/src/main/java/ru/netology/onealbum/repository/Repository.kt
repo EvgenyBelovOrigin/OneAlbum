@@ -17,6 +17,7 @@ class Repository {
 
     companion object {
         private const val BASE_URL = "https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/album.json"
+        //todo to remove in buildconfig
         private val jsonType = "application/json".toMediaType()
     }
 
