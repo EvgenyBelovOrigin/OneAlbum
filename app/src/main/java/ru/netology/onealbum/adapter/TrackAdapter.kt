@@ -21,8 +21,8 @@ class TrackAdapter(
     }
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        val post = getItem(position)
-        holder.bind(post)
+        val track = getItem(position)
+        holder.bind(track)
     }
 }
 

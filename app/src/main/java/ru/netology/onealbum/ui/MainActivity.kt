@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.netology.onealbum.adapter.OnInteractionListener
 import ru.netology.onealbum.adapter.TrackAdapter
 import ru.netology.onealbum.databinding.ActivityMainBinding
+import ru.netology.onealbum.dto.Track
 import ru.netology.onealbum.viewmodel.ViewModel
 
 
@@ -21,8 +22,10 @@ class MainActivity : AppCompatActivity() {
         val viewModel: ViewModel by viewModels()
 
         val adapter = TrackAdapter(object : OnInteractionListener {
+            override fun onPlay(track: Track) {
+                viewModel.play(track)
+            }
         })
-        binding.list.adapter = adapter
         viewModel.album.observe(this) { album ->
             with(binding) {
                 albumName.text = album.title
@@ -31,9 +34,15 @@ class MainActivity : AppCompatActivity() {
                 genre.text = album.genre
             }
         }
-        viewModel.tracks.observe(this) { tracks ->
+        binding.list.adapter = adapter
+
+        viewModel._tracks.observe(this) { tracks ->
             adapter.submitList(tracks)
         }
+        viewModel.refresh.observe(this){
+            adapter.notifyDataSetChanged()
+        }
+
 
     }
 }

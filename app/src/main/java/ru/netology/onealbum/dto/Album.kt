@@ -12,6 +12,6 @@ data class Album(
 
 data class Track(
     val id: Int = 0,
-    val file: String = "",
-    val isPlaying:Boolean = false
+    var file: String = "",
+    var isPlaying:Boolean = false
 )
