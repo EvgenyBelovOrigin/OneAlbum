@@ -35,11 +35,11 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     private fun loadAlbum() {
         thread {
             try {
-                val data = repository.getAll()
-                val tracks = data.tracks
-                tracks?.map {
+                var data = repository.getAll()
+                val tracks = data.tracks?.map {
                     it.copy(filePath = "$BASE_URL${it.file}")
                 }
+                data = data.copy(tracks = tracks)
                 _album.postValue(data)
 
             } catch (e: Exception) {
@@ -55,6 +55,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                     it.copy(isPlaying = false)
                 } else it.copy(isPlaying = true)
             }
+            _album.value = _album.value?.copy(tracks =_album.value?.tracks )
             MediaLifecycleObserver.mediaStop()
             track.filePath?.let { MediaLifecycleObserver.mediaPlay(it) }
             _refreshAdapter.value = Unit
@@ -63,6 +64,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             _album.value?.tracks = _album.value?.tracks?.map {
                 it.copy(isPlaying = false)
             }
+            _album.value = _album.value?.copy(tracks =_album.value?.tracks )
             _refreshAdapter.value = Unit
             MediaLifecycleObserver.mediaStop()
         }
