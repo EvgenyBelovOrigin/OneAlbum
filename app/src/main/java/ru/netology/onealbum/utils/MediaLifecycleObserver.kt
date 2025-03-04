@@ -8,14 +8,18 @@ import androidx.lifecycle.LifecycleOwner
 class MediaLifecycleObserver : LifecycleEventObserver {
     var mediaPlayer: MediaPlayer? = MediaPlayer()
 
-    fun play() {
+
+    fun play(trackPath: String) {
+        mediaPlayer?.setDataSource(trackPath)
         mediaPlayer?.setOnPreparedListener {
             it.start()
         }
         mediaPlayer?.prepareAsync()
     }
-    fun stop(){
+
+    fun stop() {
         mediaPlayer?.reset()
+
     }
 
 
@@ -26,8 +30,22 @@ class MediaLifecycleObserver : LifecycleEventObserver {
             Lifecycle.Event.ON_STOP -> {
                 mediaPlayer?.release()
             }
+
             Lifecycle.Event.ON_DESTROY -> source.lifecycle.removeObserver(this)
             else -> Unit
+        }
+    }
+
+    companion object MediaPlayerManager {
+        private val mediaLifecycleObserver: MediaLifecycleObserver = MediaLifecycleObserver()
+        fun mediaStop() {
+            mediaLifecycleObserver.stop()
+
+        }
+
+        fun mediaPlay(trackPath: String) {
+            mediaLifecycleObserver.play(trackPath)
+
         }
     }
 }

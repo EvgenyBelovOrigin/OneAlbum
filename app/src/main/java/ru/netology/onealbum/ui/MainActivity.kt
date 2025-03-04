@@ -1,7 +1,6 @@
 package ru.netology.onealbum.ui
 
 import android.os.Bundle
-import android.widget.Adapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.onealbum.adapter.OnInteractionListener
@@ -14,8 +13,7 @@ import ru.netology.onealbum.viewmodel.ViewModel
 
 class MainActivity : AppCompatActivity() {
     private val observer: MediaLifecycleObserver = MediaLifecycleObserver()
-    val BASE_URL =
-        "https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +31,9 @@ class MainActivity : AppCompatActivity() {
                 viewModel.play(track)
             }
         })
+        binding.list.adapter = adapter
         viewModel.album.observe(this) { album ->
+            adapter.submitList(album.tracks)
             with(binding) {
                 albumName.text = album.title
                 artistName.text = album.artist
@@ -41,27 +41,9 @@ class MainActivity : AppCompatActivity() {
                 genre.text = album.genre
             }
         }
-        binding.list.adapter = adapter
 
-        viewModel.tracks.observe(this) { tracks ->
-            adapter.submitList(tracks)
-        }
-        viewModel.refresh.observe(this) {
+        viewModel.refreshAdapter.observe(this) {
             adapter.notifyDataSetChanged()
         }
-        viewModel.playTrack.observe(this) {
-            if (it.isNotEmpty()) {
-                observer.apply {
-                    mediaPlayer?.apply {
-                        setDataSource("$BASE_URL${it.first()}")
-                    }
-                }.play()
-            }
-        }
-        viewModel.stop.observe(this) {
-            observer.stop()
-        }
-
-
     }
 }
