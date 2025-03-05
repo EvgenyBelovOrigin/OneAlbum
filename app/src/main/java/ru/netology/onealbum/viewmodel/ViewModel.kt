@@ -55,7 +55,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                     it.copy(isPlaying = false)
                 } else it.copy(isPlaying = true)
             }
-            _album.value = _album.value?.copy(tracks =_album.value?.tracks )
+            _album.value = _album.value?.copy(tracks = _album.value?.tracks)
             MediaLifecycleObserver.mediaStop()
             track.filePath?.let { MediaLifecycleObserver.mediaPlay(it) }
             _refreshAdapter.value = Unit
@@ -64,9 +64,29 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             _album.value?.tracks = _album.value?.tracks?.map {
                 it.copy(isPlaying = false)
             }
-            _album.value = _album.value?.copy(tracks =_album.value?.tracks )
+            _album.value = _album.value?.copy(tracks = _album.value?.tracks)
             _refreshAdapter.value = Unit
             MediaLifecycleObserver.mediaStop()
+        }
+    }
+
+    fun goToNextTrack(trackPath: String) {
+        val track = album.value?.tracks?.find {
+            it.filePath == trackPath
+        }
+        val index = album.value?.tracks?.indexOf(track)
+        val nextTrack =
+            index?.let { album.value?.tracks?.get(it.inc()) } ?: album.value?.tracks?.firstOrNull()
+        nextTrack?.let { play(it) }
+        _refreshAdapter.value = Unit
+
+    }
+
+    companion object {
+        private val viewModel: ViewModel = ViewModel(application = Application())
+        fun goToNextTrack(trackPath: String) {
+            viewModel.goToNextTrack(trackPath)
+
         }
     }
 }
