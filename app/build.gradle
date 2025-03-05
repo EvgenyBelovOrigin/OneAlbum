@@ -18,12 +18,19 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            manifestPlaceholders.usesCleartextTraffic = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/"'
+        }
+        debug {
+            manifestPlaceholders.usesCleartextTraffic = true
+            buildConfigField "String", "BASE_URL", '"https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/"'
         }
     }
     compileOptions {
@@ -39,7 +46,7 @@ dependencies {
     def okhttp_version = "4.12.0"
     def lifecycleViewmodelKtx_version = "2.8.3"
     def gson_version = "2.11.0"
-    def activityKtx_version= "1.9.1"
+    def activityKtx_version = "1.9.1"
 
 
     implementation libs.androidx.core.ktx
@@ -53,7 +60,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleViewmodelKtx_version"
     implementation "com.google.code.gson:gson:$gson_version"
-    implementation"androidx.activity:activity-ktx:$activityKtx_version"
+    implementation "androidx.activity:activity-ktx:$activityKtx_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleViewmodelKtx_version"
 
 }

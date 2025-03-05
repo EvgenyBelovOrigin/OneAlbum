@@ -5,11 +5,11 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.google.gson.internal.GsonBuildConfig
 import ru.netology.onealbum.viewmodel.ViewModel
 
 class MediaLifecycleObserver : LifecycleEventObserver {
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
-
 
 
     fun play(trackPath: String) {

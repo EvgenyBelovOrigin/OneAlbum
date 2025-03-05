@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
+import ru.netology.onealbum.BuildConfig
 import ru.netology.onealbum.dto.Album
 import ru.netology.onealbum.dto.Track
 import ru.netology.onealbum.repository.Repository
@@ -15,8 +15,8 @@ import kotlin.concurrent.thread
 class ViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository = Repository()
-    val BASE_URL =
-        "https://github.com/netology-code/andad-homeworks/raw/master/09_multimedia/data/"
+    private val BASE_URL = BuildConfig.BASE_URL
+//    val BASE_URL = BuildConfig
     //todo to remove in build
 
     private val _album = MutableLiveData(Album())
